@@ -1,0 +1,9 @@
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\bin\Debug\HebbNeuralNetwork.exe.config
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\bin\Debug\HebbNeuralNetwork.exe
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\bin\Debug\HebbNeuralNetwork.pdb
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.csprojResolveAssemblyReference.cache
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.mainForm.resources
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.Properties.Resources.resources
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.csproj.GenerateResource.Cache
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.exe
+D:\MS Visual Studio\Projects\C#\HebbNeuralNetwork\HebbNeuralNetwork\obj\Debug\HebbNeuralNetwork.pdb
