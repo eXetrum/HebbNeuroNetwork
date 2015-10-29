@@ -10,7 +10,9 @@ namespace HebbNeuralNetwork
     {
         public Neuron() { }
 
-        public int[] Input { private get; set; }
-        public int[] Output { get; private set; }
+        // Данные входного изображения
+        public int[] X { get; set; }
+        // Веса связей нейрона
+        public int[] W { get; set; }
     }
 }

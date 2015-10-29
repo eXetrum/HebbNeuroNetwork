@@ -19,14 +19,18 @@ namespace HebbNeuralNetwork
         static int objectCounter = 0;
 
         static int objectsInOneRow = 4;
+        static int offsetH = 20;
+
+        Label titleLabel;
 
         public InputGUI(int rows, int cols)
             : base()
         {
             ++objectCounter;
+            titleLabel = new Label();
+
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            
             // 
             // dataGridView
             // 
@@ -46,10 +50,10 @@ namespace HebbNeuralNetwork
             this.RowHeadersVisible = false;
             //this.RowHeadersWidth = 5;
             this.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            //dataGridViewCellStyle5.BackColor = Color.FromArgb(0); //System.Drawing.Color.White;
+            //dataGridViewCellStyle5.ForeColor = Color.FromArgb(0); //System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(0); //System.Drawing.Color.Red;
+            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(0);// System.Drawing.Color.White;
             this.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.RowTemplate.Height = cellHeight;
             this.RowTemplate.ReadOnly = true;
@@ -65,66 +69,78 @@ namespace HebbNeuralNetwork
             this.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             this.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-            
-
-            ///////////////////
-            
+            ///////////////////            
             ///////////////////
             ///////////////////
-
             this.RowCount = rows;
             this.ColumnCount = cols;
 
-
-            
-        }
-        
-        public void attachTo(Panel mainGUI)
-        {
-            //mainGUI.controls
-            mainGUI.SuspendLayout();
-
-            
-            for (int i = 0; i < this.ColumnCount; ++i)
-                this.Columns[i].Width = cellWidth;
-            //this.CurrentCell.Selected = false;
             drawMode = false;
             selectionCellColor = Color.FromArgb(255, 255, 128, 255);
-
-            mainGUI.Controls.Add(this);
-            mainGUI.ResumeLayout(false);
         }
 
-        public void SetFreeLocation()
+        public void SetImage(int[] image)
+        {
+            for (int i = 0; i < Rows.Count; ++i) 
+                for (int j = 0; j < Columns.Count; ++j)
+                    if (image[i * Columns.Count + j] == 1) this.Rows[i].Cells[j].Style.BackColor = selectionCellColor;
+
+            this.Rows[0].Cells[1].Selected = true;
+            this.ClearSelection();
+            this.Refresh();
+            //this.ClearSelection();
+            //this.CurrentCell = null;
+            //this.Rows[0].Selected = false;
+            //this.Invalidate();
+        }
+
+        public void attachTo(Panel mainGUI, bool userInput = false)
+        {
+            mainGUI.SuspendLayout();            
+            for (int i = 0; i < this.ColumnCount; ++i)
+                this.Columns[i].Width = cellWidth;
+            
+            Point p = userInput ? new Point(0, offsetH) : SetFreeLocation();
+            if (userInput)
+                Location = p;
+
+            titleLabel.Location = new Point(p.X, p.Y - 17);
+            titleLabel.Width = Width;
+            titleLabel.Height = 17;
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            titleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            titleLabel.FlatStyle = FlatStyle.System;
+
+            titleLabel.BackColor = Color.LightBlue;
+            titleLabel.Text = userInput ? "User X" : "X #" + objectCounter;
+
+
+            mainGUI.Controls.Add(this); 
+            mainGUI.Controls.Add(titleLabel);
+            
+
+            
+
+            mainGUI.ResumeLayout(false);
+            mainGUI.Focus();
+            
+        }
+
+        public Point SetFreeLocation()
         {
             int h = 0;
-            //if ((objectCounter - 1) % objectsInOneRow == 0)
             int ratio = (objectCounter - 1) / objectsInOneRow;
             h = (objectCounter - 1) / objectsInOneRow * Height;
             if (h == 0)
             {
-                Location = new Point((objectCounter - 1) * (Width + 25), h);///(objectCounter - 1) * Height);
+                Location = new Point((objectCounter - 1) * (Width + 25), offsetH);
+                return Location;
             }
             else
             {
-                Location = new Point((objectCounter - 1 - ratio * objectsInOneRow) * (Width + 25), h + (ratio * 25));
+                Location = new Point((objectCounter - 1 - ratio * objectsInOneRow) * (Width + 25), h + (ratio * 25) + offsetH);
+                return Location;
             }
-        }
-
-
-
-
-
-
-
-        private void _dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            /*
-            DataGridView dgv = sender as DataGridView;
-            drawMode = dgv[e.ColumnIndex, e.RowIndex].Selected;
-            for (int i = 0; i < cells.Count; ++i)
-                cells[i].Selected = true;*/
-            //MessageBox.Show(e.RowIndex.ToString() + " " + e.ColumnIndex.ToString());
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -134,9 +150,7 @@ namespace HebbNeuralNetwork
                 this.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = selectionCellColor;
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 this.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
-            //mainForm.ActiveForm.Text = e.Button + " " + e.RowIndex + " " + e.ColumnIndex;
         }
-
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -154,17 +168,12 @@ namespace HebbNeuralNetwork
 
         private void dataGridView1_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //dataGridView1[e.ColumnIndex, e.RowIndex].Style.ForeColor = Color.Red;
             this[e.ColumnIndex, e.RowIndex].Selected = drawMode;
             if (drawMode == false) return;
             if(e.Button == System.Windows.Forms.MouseButtons.Left)
                 this.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = selectionCellColor;
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
                     this.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
-            //dataGridView1[e.ColumnIndex, e.RowIndex].Style.ForeColor = Color.Red;
-
-
-            //  dataGridView1[e.ColumnIndex, e.RowIndex].Style.ForeColor = Color.White;
         }
 
         private void dataGridView1_MouseLeave(object sender, EventArgs e)
