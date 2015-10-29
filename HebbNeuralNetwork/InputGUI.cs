@@ -88,10 +88,16 @@ namespace HebbNeuralNetwork
             this.Rows[0].Cells[1].Selected = true;
             this.ClearSelection();
             this.Refresh();
-            //this.ClearSelection();
-            //this.CurrentCell = null;
-            //this.Rows[0].Selected = false;
-            //this.Invalidate();
+        }
+
+        public int[] GetImage()
+        {
+            int[] X = new int[Rows.Count * Columns.Count];
+            for (int i = 0; i < Rows.Count; ++i)
+                for (int j = 0; j < Columns.Count; ++j)
+                    X[i * Columns.Count + j] = (this.Rows[i].Cells[j].Style.BackColor.Equals(selectionCellColor) ? 1 : -1);
+
+            return X;
         }
 
         public void attachTo(Panel mainGUI, bool userInput = false)
@@ -117,10 +123,6 @@ namespace HebbNeuralNetwork
 
             mainGUI.Controls.Add(this); 
             mainGUI.Controls.Add(titleLabel);
-            
-
-            
-
             mainGUI.ResumeLayout(false);
             mainGUI.Focus();
             

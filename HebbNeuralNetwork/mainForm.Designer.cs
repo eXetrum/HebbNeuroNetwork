@@ -32,6 +32,9 @@
             this.standartInputPanel = new System.Windows.Forms.Panel();
             this.outputDataGroupBox = new System.Windows.Forms.GroupBox();
             this.userInputPanel = new System.Windows.Forms.Panel();
+            this.btnTrain = new System.Windows.Forms.Button();
+            this.log = new System.Windows.Forms.TextBox();
+            this.btnRecognize = new System.Windows.Forms.Button();
             this.inputDataGroupBox.SuspendLayout();
             this.outputDataGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -77,11 +80,44 @@
             this.userInputPanel.Size = new System.Drawing.Size(88, 125);
             this.userInputPanel.TabIndex = 0;
             // 
+            // btnTrain
+            // 
+            this.btnTrain.Location = new System.Drawing.Point(12, 168);
+            this.btnTrain.Name = "btnTrain";
+            this.btnTrain.Size = new System.Drawing.Size(75, 23);
+            this.btnTrain.TabIndex = 2;
+            this.btnTrain.Text = "Train";
+            this.btnTrain.UseVisualStyleBackColor = true;
+            this.btnTrain.Click += new System.EventHandler(this.btnTrain_Click);
+            // 
+            // log
+            // 
+            this.log.Location = new System.Drawing.Point(12, 197);
+            this.log.Multiline = true;
+            this.log.Name = "log";
+            this.log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.log.Size = new System.Drawing.Size(560, 151);
+            this.log.TabIndex = 3;
+            // 
+            // btnRecognize
+            // 
+            this.btnRecognize.Enabled = false;
+            this.btnRecognize.Location = new System.Drawing.Point(503, 168);
+            this.btnRecognize.Name = "btnRecognize";
+            this.btnRecognize.Size = new System.Drawing.Size(75, 23);
+            this.btnRecognize.TabIndex = 4;
+            this.btnRecognize.Text = "Recognize";
+            this.btnRecognize.UseVisualStyleBackColor = true;
+            this.btnRecognize.Click += new System.EventHandler(this.btnRecognize_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 468);
+            this.Controls.Add(this.btnRecognize);
+            this.Controls.Add(this.log);
+            this.Controls.Add(this.btnTrain);
             this.Controls.Add(this.outputDataGroupBox);
             this.Controls.Add(this.inputDataGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -90,6 +126,7 @@
             this.inputDataGroupBox.ResumeLayout(false);
             this.outputDataGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -99,6 +136,9 @@
         private System.Windows.Forms.Panel standartInputPanel;
         private System.Windows.Forms.GroupBox outputDataGroupBox;
         private System.Windows.Forms.Panel userInputPanel;
+        private System.Windows.Forms.Button btnTrain;
+        private System.Windows.Forms.TextBox log;
+        private System.Windows.Forms.Button btnRecognize;
 
     }
 }
